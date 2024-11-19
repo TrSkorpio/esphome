@@ -25,9 +25,9 @@ static const uint8_t AHT20_INITIALIZE_CMD[] = {0xBE, 0x08, 0x00};
 static const uint8_t AHT10_MEASURE_CMD[] = {0xAC, 0x33, 0x00};
 static const uint8_t AHT10_SOFTRESET_CMD[] = {0xBA};
 
-static const uint8_t AHT10_DEFAULT_DELAY = 8;     // ms, for initialization and temperature measurement
-static const uint8_t AHT10_READ_DELAY = 40;       // ms, time to wait for conversion result
-static const uint8_t AHT10_SOFTRESET_DELAY = 50;  // ms
+static const uint8_t AHT10_DEFAULT_DELAY = 10;     // ms, for initialization and temperature measurement
+static const uint8_t AHT10_READ_DELAY = 50;       // ms, time to wait for conversion result
+static const uint8_t AHT10_SOFTRESET_DELAY = 30;  // ms
 
 static const uint8_t AHT10_ATTEMPTS = 3;  // safety margin, normally 3 attempts are enough: 3*30=90ms
 static const uint8_t AHT10_INIT_ATTEMPTS = 10;
@@ -107,15 +107,15 @@ void AHT10Component::read_data_() {
     this->restart_read_();
     return;
   }
-  if (data[1] == 0x0 && data[2] == 0x0 && (data[3] >> 4) == 0x0) {
+  //if (data[1] == 0x0 && data[2] == 0x0 && (data[3] >> 4) == 0x0) {
     // Unrealistic humidity (0x0)
-    if (this->humidity_sensor_ == nullptr) {
-      ESP_LOGV(TAG, "ATH10 Unrealistic humidity (0x0), but humidity is not required");
-    } else {
-      ESP_LOGD(TAG, "ATH10 Unrealistic humidity (0x0), retrying...");
-      if (this->write(AHT10_MEASURE_CMD, sizeof(AHT10_MEASURE_CMD)) != i2c::ERROR_OK) {
-        this->status_set_warning("Communication with AHT10 failed!");
-      }
+   // if (this->humidity_sensor_ == nullptr) {
+   //   ESP_LOGV(TAG, "ATH10 Unrealistic humidity (0x0), but humidity is not required");
+  //  } else {
+  //    ESP_LOGD(TAG, "ATH10 Unrealistic humidity (0x0), retrying...");
+  //    if (this->write(AHT10_MEASURE_CMD, sizeof(AHT10_MEASURE_CMD)) != i2c::ERROR_OK) {
+  //     this->status_set_warning("Communication with AHT10 failed!");
+  //    }
       this->restart_read_();
       return;
     }
