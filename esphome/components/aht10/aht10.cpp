@@ -25,9 +25,9 @@ static const uint8_t AHT20_INITIALIZE_CMD[] = {0xBE, 0x08, 0x00};
 static const uint8_t AHT10_MEASURE_CMD[] = {0xAC, 0x33, 0x00};
 static const uint8_t AHT10_SOFTRESET_CMD[] = {0xBA};
 
-static const uint8_t AHT10_DEFAULT_DELAY = 75;     // ms, for initialization and temperature measurement
-static const uint8_t AHT10_READ_DELAY = 75;       // ms, time to wait for conversion result
-static const uint8_t AHT10_SOFTRESET_DELAY = 30;  // ms
+static const uint8_t AHT10_DEFAULT_DELAY = 8;     // ms, for initialization and temperature measurement
+static const uint8_t AHT10_READ_DELAY = 40;       // ms, time to wait for conversion result
+static const uint8_t AHT10_SOFTRESET_DELAY = 50;  // ms
 
 static const uint8_t AHT10_ATTEMPTS = 3;  // safety margin, normally 3 attempts are enough: 3*30=90ms
 static const uint8_t AHT10_INIT_ATTEMPTS = 10;
